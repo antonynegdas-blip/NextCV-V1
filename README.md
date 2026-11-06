@@ -1,86 +1,201 @@
-# 🚀 NextCV — Otimizador de Currículos Tech para ATS & Gupy
+<div align="center">
 
-SaaS desenvolvido em **Next.js 16 (App Router)**, **TypeScript**, **Tailwind CSS** e **Google Gemini API** para otimizar currículos de tecnologia (Desenvolvedores, Engenheiros de Software, DevOps e Dados) de acordo com os requisitos específicos de cada vaga.
+  <img src="public/icon.svg" alt="NextCV Logo" width="80" height="80" />
 
----
+  # NextCV — ATS Precision Resume Optimizer
+  
+  **Otimizador de Perfil Técnico e Currículos para Sistemas ATS (Gupy, Greenhouse, Lever, Workday)**
 
-## 🌟 Principais Recursos
+  [![Next.js 16](https://img.shields.io/badge/Next.js-16.4-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+  [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+  [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38bdf8?style=for-the-badge&logo=tailwindcss)](https://tailwindcss.com/)
+  [![Security](https://img.shields.io/badge/Security-A%2B%20Hardened-emerald?style=for-the-badge&logo=shield)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)
+  [![License](https://img.shields.io/badge/License-MIT-zinc?style=for-the-badge)](LICENSE)
 
-1. **Diagnóstico & ATS Match Score (0 a 100%):**
-   - Pontuação geral de aderência aos robôs de triagem (Gupy, Lever, Greenhouse, Workday).
-   - Análise segmentada de **Hard Skills**, **Alinhamento de Experiência** e **Legibilidade ATS**.
-   - Mapeamento instantâneo de **Palavras-chave Encontradas vs. Faltantes**.
-
-2. **Otimização Assistida com IA (Anti-Alucinação):**
-   - Reescrita do resumo profissional alinhado à cultura e exigências da vaga.
-   - Aplicação do framework **Google XYZ** (*"Alcancei [X], medido por [Y], fazendo [Z]"*) e verbos de ação fortes nos bullet points.
-   - Preservação da verdade do candidato (a IA nunca inventa empresas ou diplomas fictícios).
-
-3. **Comparativo Interativo ("Antes vs Depois"):**
-   - Visão lado a lado das alterações com a justificativa de RH de por que aquela mudança aumenta a chance de triagem.
-
-4. **Exportação Versátil:**
-   - **Imprimir / Salvar em PDF** formatado com layout limpo e hierarquia amigável a parsers de OCR.
-   - **Copiar Texto Limpo** para colar diretamente nos campos de texto da Gupy.
-   - **Copiar em Markdown** para edição rápida no Notion/Obsidian/Docs.
-
-5. **Upload Seguro de PDF:**
-   - Parser nativo de PDF com validação de tipo MIME e limite de 5MB.
+  <p align="center">
+    <a href="#-visão-geral">Visão Geral</a> •
+    <a href="#-arquitetura-do-sistema">Arquitetura</a> •
+    <a href="#-funcionalidades-chave">Funcionalidades</a> •
+    <a href="#-blindagem-de-segurança--lgpd">Segurança</a> •
+    <a href="#-stack-tecnológica">Stack</a> •
+    <a href="#-instalação--execução">Execução Local</a>
+  </p>
+</div>
 
 ---
 
-## 🛡️ Camada de Segurança & Robustez (V1)
+## 📌 Visão Geral
 
-- **Rate Limiting por IP:** Previne abusos de tráfego e protege as cotas da API do Gemini.
-- **Validação com Zod:** Sanitização e validação de tamanho de texto em todas as fronteiras (client e server).
-- **Proteção contra Prompt Injection:** Delimitação de tags XML estritas e diretrizes de sistema que tratam os dados de entrada estritamente como texto passivo.
-- **Modo Demonstração Automático:** Caso a chave `GEMINI_API_KEY` não seja fornecida, o sistema entra em modo de demonstração com um aviso discreto, permitindo testar toda a interface e fluxo sem quebrar.
+O **NextCV** é uma aplicação web full-stack desenvolvida para solucionar uma das maiores ineficiências do mercado de recrutamento técnico: a reprovação sumária de desenvolvedores qualificados em plataformas de triagem automatizada (Applicant Tracking Systems — ATS) por ausência de correspondência semântica e falta de métricas quantificáveis.
 
----
-
-## 🛠️ Tecnologias Utilizadas
-
-- **Fullstack:** Next.js 16 (App Router, Server Components & Route Handlers)
-- **Linguagem:** TypeScript
-- **Estilização:** Tailwind CSS v4
-- **Inteligência Artificial:** SDK Oficial do Google Gen AI (`@google/genai`) com modelo `gemini-2.5-flash`
-- **Validação de Schemas:** Zod
-- **Parser de PDF:** `unpdf`
-- **Ícones:** Lucide React
+A plataforma analisa os requisitos da vaga desejada, calcula um índice de correspondência técnica (**ATS Match Score**) segmentado em 3 pilares e reestrutura as realizações profissionais com base no framework **Google XYZ** (*"Alcancei [X], medido por [Y], fazendo [Z]"*), entregando um currículo otimizado com diagramação em coluna única certificada para OCR.
 
 ---
 
-## 🚀 Como Executar Localmente
+## 🏗️ Arquitetura do Sistema
 
-### 1. Clonar e Instalar Dependências
-
-```bash
-cd /home/certa/Documentos/Saas
-npm install
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│                          CAMADA DE INGESTÃO                            │
+│    Upload PDF (Validação de Magic Bytes)  │  Colagem de Texto Puro     │
+└───────────────────────────────────┬────────────────────────────────────┘
+                                    │
+┌───────────────────────────────────▼────────────────────────────────────┐
+│                       GATEWAY DE SEGURANÇA                             │
+│   • Origin Validation (Sec-Fetch-Site)   • Rate Limiting por IP        │
+│   • Sanitização Bidi (Trojan Source)     • Defesa Anti-Prompt Injection│
+└───────────────────────────────────┬────────────────────────────────────┘
+                                    │
+┌───────────────────────────────────▼────────────────────────────────────┐
+│                    MOTOR ALGORÍTMICO DE ANÁLISE                        │
+│   • Extração de Requisitos da Vaga       • ATS Scoring (0 a 100%)      │
+│   • Mapeamento de Gaps de Palavras-chave • Reescrita STAR/Google XYZ   │
+│   • Resiliência Multi-Modelos (Fila de Contingência Ativa)             │
+└───────────────────────────────────┬────────────────────────────────────┘
+                                    │
+┌───────────────────────────────────▼────────────────────────────────────┐
+│                        RENDERIZAÇÃO & SAÍDA                            │
+│   • Score Dashboard Interativo           • Visualizador Diff de Impacto│
+│   • Currículo A4 Formatado para OCR      • Exportação Gupy / Markdown  │
+└────────────────────────────────────────────────────────────────────────┘
 ```
 
-### 2. Configurar a Chave da API do Gemini
+---
 
-Crie o arquivo `.env.local` na raiz:
+## ⚡ Funcionalidades Chave
 
-```env
-GEMINI_API_KEY=sua_chave_do_google_ai_studio
-NEXT_PUBLIC_APP_URL=http://localhost:3000
+### 1. Diagnóstico de Triagem ATS (0 a 100%)
+* **Score Ponderado:** Decomposição algorítmica em três pilares fundamentais:
+  * **Hard Skills & Stack:** Presença das linguagens, frameworks, bancos e ferramentas mandatórias.
+  * **Alinhamento de Escopo:** Coerência entre a senioridade do candidato e as responsabilidades da vaga.
+  * **Legibilidade OCR:** Estrutura textual otimizada para os parsers de plataformas como a Gupy.
+* **Mapeamento de Gaps:** Identificação clara entre competências detectadas e termos obrigatórios faltantes.
+
+### 2. Otimização Assistida com Salvaguarda Anti-Alucinação
+* **Preservação de Fatos:** Regras estritas impedem a criação de cargos fictícios, diplomas inexistentes ou anos de experiência não vivenciados.
+* **Framework Google XYZ:** Reformulação de descrições passivas para realizações ancoradas em verbos de ação fortes e métricas de resultado.
+* **Diff Interativo ("Antes vs. Depois"):** Interface comparativa estilo Code Review com justificativas de RH sobre o ganho de conversão de cada alteração.
+
+### 3. Diagramação em Coluna Única (ATS Certified Layout)
+* Layout limpo, sem elementos flutuantes, tabelas complexas ou gráficos que confundem leitores de triagem.
+* **Exportação A4 Nativa:** Estilização `@media print` milimétrica para geração de PDF sem dependência de bibliotecas pesadas no client.
+* **Exportação para Gupy:** Botão de cópia rápida formatado para preenchimento de formulários de texto puro.
+
+---
+
+## 🛡️ Blindagem de Segurança & LGPD
+
+Construído sob a metodologia *Defense-in-Depth* (Defesa em Profundidade):
+
+| Camada | Mecanismo de Proteção | Impacto |
+| :--- | :--- | :--- |
+| **Isolamento de Segredos** | Variáveis estritamente server-side + guarda `assertServerEnvironment()` | **Zero Leakage:** Impossibilidade matemática da chave vazar no bundle client. |
+| **Integridade de Transporte** | HSTS (`max-age=63072000; preload`) + CSP Estrito | Força HTTPS, previne SSL-Stripping e bloqueia ataques de XSS e Clickjacking. |
+| **Anti-CSRF & Hijacking** | Validação de `Sec-Fetch-Site` e cabeçalhos `Origin` / `Host` | Rejeita requisições cross-site disparadas por scripts externos maliciosos. |
+| **Higienização de Entradas** | Filtro de caracteres Unicode Bidi Overrides + Detecção de Injeção | Bloqueia ataques do tipo *Trojan Source* e neutraliza tentativas de prompt injection. |
+| **Validação de Arquivos** | Inspeção binária de Magic Bytes (`%PDF-`) + Limite de 5MB | Impede que arquivos maliciosos executáveis sejam renomeados como PDF. |
+| **Privacidade & LGPD** | *Zero Retention Policy* + Cabeçalhos `Cache-Control: no-store` | Nenhum currículo é persistido em banco de dados; tráfego estritamente volátil em memória. |
+
+---
+
+## 💻 Stack Tecnológica
+
+* **Core Fullstack:** [Next.js 16](https://nextjs.org/) (App Router, Server Components & Route Handlers)
+* **Linguagem:** [TypeScript 5](https://www.typescriptlang.org/) (Tipagem estrita ponta a ponta)
+* **Estilização & UI:** [Tailwind CSS v4](https://tailwindcss.com/) com arquitetura *Double-Bezel* e design tokens modernos
+* **Ícones & Microinterações:** [Lucide React](https://lucide.dev/)
+* **Parser de Documentos:** `unpdf` (Extração em memória sem dependências nativas de C++)
+* **Validação de Schemas:** [Zod](https://zod.dev/) (Validação em tempo de compilação e execução)
+* **Bundler & Build Tool:** Turbopack
+
+---
+
+## 🚀 Instalação & Execução Local
+
+### Pré-requisitos
+* Node.js 20+ instalado
+* Chave de API configurada
+
+### Passo a Passo
+
+1. **Clonar o Repositório:**
+   ```bash
+   git clone https://github.com/seu-usuario/nextcv.git
+   cd nextcv
+   ```
+
+2. **Instalar Dependências:**
+   ```bash
+   npm install
+   ```
+
+3. **Configurar Variáveis de Ambiente:**
+   Crie o arquivo `.env.local` na raiz com base no exemplo:
+   ```bash
+   cp .env.example .env.local
+   ```
+   Edite o `.env.local`:
+   ```env
+   GEMINI_API_KEY=sua_chave_de_api_aqui
+   NEXT_PUBLIC_APP_URL=http://localhost:3000
+   ```
+
+4. **Executar em Modo de Desenvolvimento:**
+   ```bash
+   npm run dev
+   ```
+   Acesse **http://localhost:3000** no navegador.
+
+5. **Compilar Build de Produção:**
+   ```bash
+   npm run build
+   npm run start
+   ```
+
+---
+
+## 📂 Estrutura do Projeto
+
+```text
+├── src/
+│   ├── app/
+│   │   ├── api/
+│   │   │   ├── optimize/route.ts    # Endpoint de análise com validações de segurança
+│   │   │   └── parse-pdf/route.ts   # Upload e extração segura de PDFs
+│   │   ├── globals.css              # Design tokens e regras de impressão A4
+│   │   ├── layout.tsx               # Metadados, tipografia e ícones vetoriais
+│   │   ├── page.tsx                 # View principal do otimizador e dashboard
+│   │   └── icon.svg                 # Favicon vetorial oficial
+│   ├── components/
+│   │   ├── Header.tsx               # Barra de navegação com monitor de status
+│   │   ├── InputSection.tsx         # Drag & Drop de arquivo e formulário segmentado
+│   │   ├── ScoreDashboard.tsx       # Medidor circular SVG de aderência e tags
+│   │   ├── ResumeViewer.tsx         # Folha do currículo para OCR e impressão
+│   │   └── DiffViewer.tsx           # Comparador visual Antes vs Depois
+│   ├── lib/
+│   │   ├── gemini.ts                # Motor de otimização com fallback multi-modelos
+│   │   ├── parsers/pdf.ts           # Parser de buffer de PDF com limpeza
+│   │   ├── ratelimit.ts             # Limitador de vazão de requisições por IP
+│   │   ├── sampleData.ts            # Dataset de teste para desenvolvedores
+│   │   └── security/
+│   │       ├── request.ts           # Validador de origem e proteção anti-CSRF
+│   │       ├── sanitizer.ts         # Higienizador de Bidi e comandos maliciosos
+│   │       └── url.ts               # Sanitizador anti-XSS para links externos
+│   └── types/
+│       └── resume.ts                # Schemas Zod e tipagens TypeScript
+├── next.config.ts                   # Cabeçalhos de segurança HTTP (CSP, HSTS)
+├── package.json
+└── README.md
 ```
 
-> 💡 *Você pode gerar sua chave gratuitamente no [Google AI Studio](https://aistudio.google.com/).*
+---
 
-### 3. Rodar em Modo de Desenvolvimento
+## 📄 Licença
 
-```bash
-npm run dev
-```
+Este projeto é distribuído sob a licença **MIT**. Consulte o arquivo `LICENSE` para mais detalhes.
 
-Abra [http://localhost:3000](http://localhost:3000) no seu navegador.
+---
 
-### 4. Build de Produção
-
-```bash
-npm run build
-npm run start
-```
+<div align="center">
+  <sub>Construído com obsessão por performance, segurança e design de engenharia de software.</sub>
+</div>
