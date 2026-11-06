@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#18181b"/>
+      <stop offset="100%" stop-color="#09090b"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="16" y1="16" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#34d399"/>
+      <stop offset="100%" stop-color="#10b981"/>
+    </linearGradient>
+    <linearGradient id="chevronGrad" x1="36" y1="24" x2="48" y2="36" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Fundo Squircle com borda sutil -->
+  <rect width="64" height="64" rx="16" fill="url(#bgGrad)"/>
+  <rect x="0.75" y="0.75" width="62.5" height="62.5" rx="15.25" stroke="white" stroke-opacity="0.12" stroke-width="1.5"/>
+
+  <!-- Letra "N" estilizada (Next) -->
+  <path d="M17 45V19h6.5l12.5 17.5V19h6V45h-6.5L23 27.5V45H17z" fill="url(#accentGrad)"/>
+
+  <!-- Chevron de avanço / CV Tag -->
+  <path d="M44 26l5 6-5 6" stroke="url(#chevronGrad)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Ponto de status indicador -->
+  <circle cx="50" cy="14" r="3.5" fill="#34d399"/>
+</svg>

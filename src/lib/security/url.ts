@@ -33,3 +33,4 @@ export function sanitizeExternalUrl(url?: string): string | null {
 
   return null;
 }
+

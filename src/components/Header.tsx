@@ -7,15 +7,18 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Brand */}
         <div className="flex items-center space-x-3.5">
-          <div className="relative flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-b from-zinc-800 to-zinc-900 border border-white/10 shadow-inner">
-            <Terminal className="w-4 h-4 text-emerald-400" />
+          <div className="relative flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-b from-zinc-800 to-zinc-900 border border-white/10 shadow-inner overflow-hidden">
+            <svg className="w-5 h-5" viewBox="0 0 64 64" fill="none">
+              <path d="M17 45V19h6.5l12.5 17.5V19h6V45h-6.5L23 27.5V45H17z" fill="#34d399"/>
+              <path d="M44 26l5 6-5 6" stroke="#38bdf8" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
             <div className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-500 animate-ping opacity-75" />
             <div className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-400" />
           </div>
           <div className="flex flex-col">
             <div className="flex items-center space-x-2">
-              <span className="font-semibold text-base tracking-tight text-white">
-                DevMatch<span className="text-emerald-400">.ai</span>
+              <span className="font-bold text-base tracking-tight text-white">
+                Next<span className="text-emerald-400">CV</span>
               </span>
               <span className="text-[10px] uppercase font-mono font-bold tracking-wider px-1.5 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                 PRO ATS

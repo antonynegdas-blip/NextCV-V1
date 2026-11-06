@@ -29,3 +29,4 @@ export function validateRequestOrigin(req: NextRequest): { valid: boolean; reaso
 
   return { valid: true };
 }
+

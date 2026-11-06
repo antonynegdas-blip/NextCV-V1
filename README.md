@@ -1,4 +1,4 @@
-# 🚀 DevMatch.ai — Otimizador de Currículos Tech para ATS & Gupy
+# 🚀 NextCV — Otimizador de Currículos Tech para ATS & Gupy
 
 SaaS desenvolvido em **Next.js 16 (App Router)**, **TypeScript**, **Tailwind CSS** e **Google Gemini API** para otimizar currículos de tecnologia (Desenvolvedores, Engenheiros de Software, DevOps e Dados) de acordo com os requisitos específicos de cada vaga.
 

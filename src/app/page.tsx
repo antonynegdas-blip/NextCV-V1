@@ -195,7 +195,7 @@ export default function Home() {
 
       <footer className="border-t border-white/[0.06] py-8 text-center text-xs text-zinc-500 print:hidden mt-auto">
         <p>
-          DevMatch.ai — Engenharia de Perfil Técnico para Sistemas ATS e Processos Seletivos.
+          NextCV — Engenharia de Perfil Técnico para Sistemas ATS e Processos Seletivos.
         </p>
       </footer>
     </div>

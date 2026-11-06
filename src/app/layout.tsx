@@ -13,9 +13,16 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "DevMatch.ai — Otimizador de Currículos Dev & Tech para ATS e Gupy",
+  title: "NextCV — Otimizador de Currículos Tech para ATS e Gupy",
   description:
-    "Aumente suas chances de entrevista. Analise a aderência do seu currículo tech à vaga, identifique palavras-chave faltantes e gere um currículo otimizado com IA.",
+    "Aumente suas chances de entrevista. Analise a aderência do seu currículo tech à vaga, identifique palavras-chave faltantes e gere um currículo calibrado para triagem automatizada.",
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    shortcut: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
