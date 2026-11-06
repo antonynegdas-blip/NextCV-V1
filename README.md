@@ -18,7 +18,7 @@
     <a href="#-funcionalidades-chave">Funcionalidades</a> •
     <a href="#-blindagem-de-segurança--lgpd">Segurança</a> •
     <a href="#-stack-tecnológica">Stack</a> •
-    <a href="#-instalação--execução">Execução Local</a>
+    <a href="#-estrutura-do-projeto">Estrutura</a>
   </p>
 </div>
 
@@ -107,50 +107,6 @@ Construído sob a metodologia *Defense-in-Depth* (Defesa em Profundidade):
 * **Parser de Documentos:** `unpdf` (Extração em memória sem dependências nativas de C++)
 * **Validação de Schemas:** [Zod](https://zod.dev/) (Validação em tempo de compilação e execução)
 * **Bundler & Build Tool:** Turbopack
-
----
-
-## 🚀 Instalação & Execução Local
-
-### Pré-requisitos
-* Node.js 20+ instalado
-* Chave de API configurada
-
-### Passo a Passo
-
-1. **Clonar o Repositório:**
-   ```bash
-   git clone https://github.com/seu-usuario/nextcv.git
-   cd nextcv
-   ```
-
-2. **Instalar Dependências:**
-   ```bash
-   npm install
-   ```
-
-3. **Configurar Variáveis de Ambiente:**
-   Crie o arquivo `.env.local` na raiz com base no exemplo:
-   ```bash
-   cp .env.example .env.local
-   ```
-   Edite o `.env.local`:
-   ```env
-   GEMINI_API_KEY=sua_chave_de_api_aqui
-   NEXT_PUBLIC_APP_URL=http://localhost:3000
-   ```
-
-4. **Executar em Modo de Desenvolvimento:**
-   ```bash
-   npm run dev
-   ```
-   Acesse **http://localhost:3000** no navegador.
-
-5. **Compilar Build de Produção:**
-   ```bash
-   npm run build
-   npm run start
-   ```
 
 ---
 
