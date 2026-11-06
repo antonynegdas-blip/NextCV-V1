@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 DevMatch.ai — Otimizador de Currículos Tech para ATS & Gupy
 
-## Getting Started
+SaaS desenvolvido em **Next.js 16 (App Router)**, **TypeScript**, **Tailwind CSS** e **Google Gemini API** para otimizar currículos de tecnologia (Desenvolvedores, Engenheiros de Software, DevOps e Dados) de acordo com os requisitos específicos de cada vaga.
 
-First, run the development server:
+---
+
+## 🌟 Principais Recursos
+
+1. **Diagnóstico & ATS Match Score (0 a 100%):**
+   - Pontuação geral de aderência aos robôs de triagem (Gupy, Lever, Greenhouse, Workday).
+   - Análise segmentada de **Hard Skills**, **Alinhamento de Experiência** e **Legibilidade ATS**.
+   - Mapeamento instantâneo de **Palavras-chave Encontradas vs. Faltantes**.
+
+2. **Otimização Assistida com IA (Anti-Alucinação):**
+   - Reescrita do resumo profissional alinhado à cultura e exigências da vaga.
+   - Aplicação do framework **Google XYZ** (*"Alcancei [X], medido por [Y], fazendo [Z]"*) e verbos de ação fortes nos bullet points.
+   - Preservação da verdade do candidato (a IA nunca inventa empresas ou diplomas fictícios).
+
+3. **Comparativo Interativo ("Antes vs Depois"):**
+   - Visão lado a lado das alterações com a justificativa de RH de por que aquela mudança aumenta a chance de triagem.
+
+4. **Exportação Versátil:**
+   - **Imprimir / Salvar em PDF** formatado com layout limpo e hierarquia amigável a parsers de OCR.
+   - **Copiar Texto Limpo** para colar diretamente nos campos de texto da Gupy.
+   - **Copiar em Markdown** para edição rápida no Notion/Obsidian/Docs.
+
+5. **Upload Seguro de PDF:**
+   - Parser nativo de PDF com validação de tipo MIME e limite de 5MB.
+
+---
+
+## 🛡️ Camada de Segurança & Robustez (V1)
+
+- **Rate Limiting por IP:** Previne abusos de tráfego e protege as cotas da API do Gemini.
+- **Validação com Zod:** Sanitização e validação de tamanho de texto em todas as fronteiras (client e server).
+- **Proteção contra Prompt Injection:** Delimitação de tags XML estritas e diretrizes de sistema que tratam os dados de entrada estritamente como texto passivo.
+- **Modo Demonstração Automático:** Caso a chave `GEMINI_API_KEY` não seja fornecida, o sistema entra em modo de demonstração com um aviso discreto, permitindo testar toda a interface e fluxo sem quebrar.
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+- **Fullstack:** Next.js 16 (App Router, Server Components & Route Handlers)
+- **Linguagem:** TypeScript
+- **Estilização:** Tailwind CSS v4
+- **Inteligência Artificial:** SDK Oficial do Google Gen AI (`@google/genai`) com modelo `gemini-2.5-flash`
+- **Validação de Schemas:** Zod
+- **Parser de PDF:** `unpdf`
+- **Ícones:** Lucide React
+
+---
+
+## 🚀 Como Executar Localmente
+
+### 1. Clonar e Instalar Dependências
+
+```bash
+cd /home/certa/Documentos/Saas
+npm install
+```
+
+### 2. Configurar a Chave da API do Gemini
+
+Crie o arquivo `.env.local` na raiz:
+
+```env
+GEMINI_API_KEY=sua_chave_do_google_ai_studio
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+```
+
+> 💡 *Você pode gerar sua chave gratuitamente no [Google AI Studio](https://aistudio.google.com/).*
+
+### 3. Rodar em Modo de Desenvolvimento
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abra [http://localhost:3000](http://localhost:3000) no seu navegador.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 4. Build de Produção
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run build
+npm run start
+```
