@@ -4,10 +4,14 @@ import {
   OptimizationResult,
   OptimizationResultSchema,
 } from "@/types/resume";
+import { assertServerEnvironment, maskSecret } from "@/lib/security/sanitizer";
+
+assertServerEnvironment();
 
 const apiKey = process.env.GEMINI_API_KEY;
 
 function getGeminiClient(): GoogleGenAI {
+  assertServerEnvironment();
   if (!apiKey || apiKey === "your_gemini_api_key_here") {
     throw new Error("GEMINI_API_KEY_MISSING");
   }
@@ -160,8 +164,10 @@ Retorne APENAS o JSON puro seguindo este schema:
       const validated = OptimizationResultSchema.parse(parsedJson);
       return validated;
     } catch (error) {
-      console.warn(`Tentativa com modelo ${model} falhou:`, error instanceof Error ? error.message : error);
-      lastError = error;
+      const errMsg = error instanceof Error ? error.message : String(error);
+      const sanitizedMsg = apiKey ? errMsg.replace(new RegExp(apiKey, "g"), maskSecret(apiKey)) : errMsg;
+      console.warn(`Tentativa com modelo ${model} falhou:`, sanitizedMsg);
+      lastError = sanitizedMsg;
       // Continua para o próximo modelo candidato caso haja 404, 503, ou erro de quota transitório
     }
   }

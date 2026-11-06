@@ -1,9 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import {
-  ResumeData,
-} from "@/types/resume";
+import { ResumeData } from "@/types/resume";
+import { sanitizeExternalUrl } from "@/lib/security/url";
 import {
   Copy,
   Printer,
@@ -203,33 +202,33 @@ export function ResumeViewer({ resume }: ResumeViewerProps) {
                   <span>{resume.phone}</span>
                 </span>
               )}
-              {resume.linkedinUrl && (
+              {sanitizeExternalUrl(resume.linkedinUrl) && (
                 <a
-                  href={resume.linkedinUrl}
+                  href={sanitizeExternalUrl(resume.linkedinUrl)!}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center space-x-1 text-zinc-800 hover:underline"
                 >
                   <LinkedinIcon className="w-3 h-3" />
                   <span>LinkedIn</span>
                 </a>
               )}
-              {resume.githubUrl && (
+              {sanitizeExternalUrl(resume.githubUrl) && (
                 <a
-                  href={resume.githubUrl}
+                  href={sanitizeExternalUrl(resume.githubUrl)!}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center space-x-1 text-zinc-800 hover:underline"
                 >
                   <GithubIcon className="w-3 h-3" />
                   <span>GitHub</span>
                 </a>
               )}
-              {resume.portfolioUrl && (
+              {sanitizeExternalUrl(resume.portfolioUrl) && (
                 <a
-                  href={resume.portfolioUrl}
+                  href={sanitizeExternalUrl(resume.portfolioUrl)!}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center space-x-1 text-zinc-800 hover:underline"
                 >
                   <Globe className="w-3 h-3" />
@@ -330,11 +329,11 @@ export function ResumeViewer({ resume }: ResumeViewerProps) {
                   <div key={idx} className="text-xs sm:text-[13px]">
                     <div className="flex items-center space-x-2 font-bold text-zinc-950">
                       <span>{proj.name}</span>
-                      {proj.url && (
+                      {sanitizeExternalUrl(proj.url) && (
                         <a
-                          href={proj.url}
+                          href={sanitizeExternalUrl(proj.url)!}
                           target="_blank"
-                          rel="noreferrer"
+                          rel="noopener noreferrer"
                           className="text-zinc-700 hover:underline font-normal inline-flex items-center text-[11px]"
                         >
                           <ExternalLink className="w-2.5 h-2.5 ml-1" />

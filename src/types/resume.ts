@@ -4,7 +4,7 @@ import { z } from "zod";
 export const ResumeSchema = z.object({
   fullName: z.string().min(1, "Nome completo é obrigatório"),
   headline: z.string().describe("Título profissional, ex: Desenvolvedor Full Stack Sênior | Node.js, React"),
-  email: z.string().email("E-mail inválido").optional().or(z.literal("")),
+  email: z.string().optional().default(""),
   phone: z.string().optional().or(z.literal("")),
   location: z.string().optional().or(z.literal("")),
   linkedinUrl: z.string().optional().or(z.literal("")),
