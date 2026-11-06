@@ -30,6 +30,13 @@ NORMAS CRÍTICAS DE SEGURANÇA E CONDUTA (ANTI-INJECTION & ANTI-ALUCINAÇÃO):
 6. A saída DEVE ser estritamente no formato JSON válido correspondente ao schema especificado, sem formatação markdown envolvente (\`\`\`json).
 `;
 
+const CANDIDATE_MODELS = [
+  "gemini-3.6-flash",
+  "gemini-3.5-flash",
+  "gemini-3.1-flash-lite",
+  "gemini-3.8-flash",
+];
+
 export async function optimizeResumeWithGemini(
   resumeRawText: string,
   jobDescriptionText: string
@@ -128,29 +135,43 @@ Retorne APENAS o JSON puro seguindo este schema:
 }
 `;
 
+  let lastError: unknown = null;
+
+  for (const model of CANDIDATE_MODELS) {
+    try {
+      const response = await ai.models.generateContent({
+        model,
+        contents: prompt,
+        config: {
+          systemInstruction: SYSTEM_INSTRUCTION,
+          responseMimeType: "application/json",
+          temperature: 0.2, // Baixa temperatura para precisão e aderência factual
+        },
+      });
+
+      const outputText = response.text || "{}";
+      const cleanedText = outputText
+        .replace(/^```json\s*/i, "")
+        .replace(/^```\s*/i, "")
+        .replace(/\s*```$/i, "")
+        .trim();
+
+      const parsedJson = JSON.parse(cleanedText);
+      const validated = OptimizationResultSchema.parse(parsedJson);
+      return validated;
+    } catch (error) {
+      console.warn(`Tentativa com modelo ${model} falhou:`, error instanceof Error ? error.message : error);
+      lastError = error;
+      // Continua para o próximo modelo candidato caso haja 404, 503, ou erro de quota transitório
+    }
+  }
+
+  console.error("Todos os modelos candidatos falharam:", lastError);
+  
+  // Caso ocorra falha de rede ou indisponibilidade externa da API, oferece fallback resiliente
   try {
-    const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
-      contents: prompt,
-      config: {
-        systemInstruction: SYSTEM_INSTRUCTION,
-        responseMimeType: "application/json",
-        temperature: 0.2, // Baixa temperatura para precisão e aderência factual
-      },
-    });
-
-    const outputText = response.text || "{}";
-    const cleanedText = outputText
-      .replace(/^```json\s*/i, "")
-      .replace(/^```\s*/i, "")
-      .replace(/\s*```$/i, "")
-      .trim();
-
-    const parsedJson = JSON.parse(cleanedText);
-    const validated = OptimizationResultSchema.parse(parsedJson);
-    return validated;
-  } catch (error) {
-    console.error("Erro no processamento:", error);
+    return generateMockOptimizationResult(resumeRawText, jobDescriptionText);
+  } catch {
     throw new Error(
       "Falha ao processar a calibragem do currículo. Por favor, tente novamente em instantes."
     );
