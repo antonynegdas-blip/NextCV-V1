@@ -150,9 +150,9 @@ Retorne APENAS o JSON puro seguindo este schema:
     const validated = OptimizationResultSchema.parse(parsedJson);
     return validated;
   } catch (error) {
-    console.error("Erro na chamada do Gemini:", error);
+    console.error("Erro no processamento:", error);
     throw new Error(
-      "Falha ao processar com a IA do Gemini. Verifique a chave de API ou tente novamente."
+      "Falha ao processar a calibragem do currículo. Por favor, tente novamente em instantes."
     );
   }
 }
@@ -296,3 +296,4 @@ export function generateMockOptimizationResult(
     ],
   };
 }
+

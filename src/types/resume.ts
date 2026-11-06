@@ -81,3 +81,4 @@ export const OptimizationResultSchema = z.object({
 });
 
 export type OptimizationResult = z.infer<typeof OptimizationResultSchema>;
+

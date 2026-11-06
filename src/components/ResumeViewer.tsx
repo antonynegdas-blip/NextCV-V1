@@ -13,6 +13,8 @@ import {
   Phone,
   MapPin,
   ExternalLink,
+  ShieldCheck,
+  FileDown,
 } from "lucide-react";
 
 function GithubIcon({ className }: { className?: string }) {
@@ -109,30 +111,31 @@ export function ResumeViewer({ resume }: ResumeViewerProps) {
   };
 
   return (
-    <div className="space-y-4">
-      {/* Barra de Ações (Oculta na Impressão) */}
-      <div className="flex flex-wrap items-center justify-between gap-3 p-4 bg-zinc-100 dark:bg-zinc-800/80 rounded-xl border border-zinc-200 dark:border-zinc-700/80 print:hidden">
-        <div className="flex items-center space-x-2">
-          <span className="text-xs font-semibold text-zinc-700 dark:text-zinc-200">
-            Formato 100% Compatível com ATS (Gupy, Workday, Lever)
-          </span>
+    <div className="space-y-6">
+      {/* Barra de Ações com Design Glassmorphism */}
+      <div className="sticky top-20 z-40 flex flex-wrap items-center justify-between gap-3 p-3 sm:p-4 bg-zinc-900/90 rounded-2xl border border-white/10 shadow-2xl backdrop-blur-xl print:hidden">
+        <div className="flex items-center space-x-2 text-xs text-zinc-300">
+          <ShieldCheck className="w-4 h-4 text-emerald-400" />
+          <span className="font-medium">Layout Certificado ATS</span>
+          <span className="text-zinc-500">•</span>
+          <span className="text-zinc-400 hidden sm:inline">Estrutura pura em coluna única para OCR</span>
         </div>
 
         <div className="flex items-center space-x-2">
           <button
             type="button"
             onClick={() => handleCopy("text")}
-            className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition"
+            className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-medium bg-white/[0.05] hover:bg-white/10 border border-white/10 text-zinc-200 transition cursor-pointer"
           >
             {copiedType === "text" ? (
               <>
-                <Check className="w-3.5 h-3.5 text-emerald-500" />
-                <span className="text-emerald-600">Copiado!</span>
+                <Check className="w-3.5 h-3.5 text-emerald-400" />
+                <span className="text-emerald-400 font-semibold">Copiado!</span>
               </>
             ) : (
               <>
-                <Copy className="w-3.5 h-3.5 text-zinc-500" />
-                <span>Copiar Texto (Gupy)</span>
+                <Copy className="w-3.5 h-3.5 text-zinc-400" />
+                <span>Copiar Texto Gupy</span>
               </>
             )}
           </button>
@@ -140,16 +143,16 @@ export function ResumeViewer({ resume }: ResumeViewerProps) {
           <button
             type="button"
             onClick={() => handleCopy("markdown")}
-            className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition"
+            className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-medium bg-white/[0.05] hover:bg-white/10 border border-white/10 text-zinc-200 transition cursor-pointer"
           >
             {copiedType === "markdown" ? (
               <>
-                <Check className="w-3.5 h-3.5 text-emerald-500" />
-                <span className="text-emerald-600">Copiado!</span>
+                <Check className="w-3.5 h-3.5 text-emerald-400" />
+                <span className="text-emerald-400 font-semibold">Copiado!</span>
               </>
             ) : (
               <>
-                <Copy className="w-3.5 h-3.5 text-zinc-500" />
+                <Copy className="w-3.5 h-3.5 text-zinc-400" />
                 <span>Copiar Markdown</span>
               </>
             )}
@@ -158,217 +161,219 @@ export function ResumeViewer({ resume }: ResumeViewerProps) {
           <button
             type="button"
             onClick={handlePrint}
-            className="inline-flex items-center space-x-1.5 px-4 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 hover:bg-emerald-500 text-white shadow-xs transition"
+            className="inline-flex items-center space-x-1.5 px-4 py-1.5 rounded-xl text-xs font-semibold bg-emerald-400 hover:bg-emerald-300 text-zinc-950 shadow-md shadow-emerald-500/20 transition cursor-pointer"
           >
-            <Printer className="w-3.5 h-3.5" />
-            <span>Imprimir / Salvar PDF</span>
+            <Printer className="w-3.5 h-3.5 text-zinc-950" />
+            <span>Imprimir / PDF</span>
           </button>
         </div>
       </div>
 
-      {/* Folha do Currículo (Estilizada para tela e perfeita para impressão) */}
-      <div
-        id="resume-sheet"
-        className="bg-white text-zinc-900 p-8 sm:p-12 rounded-2xl border border-zinc-200 shadow-sm font-sans max-w-4xl mx-auto print:border-none print:shadow-none print:p-0 print:max-w-none"
-      >
-        {/* Cabeçalho */}
-        <header className="border-b border-zinc-200 pb-5 mb-5 text-center">
-          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-900 uppercase">
-            {resume.fullName}
-          </h1>
-          <p className="text-sm font-semibold text-zinc-700 mt-1 tracking-wide">
-            {resume.headline}
-          </p>
-
-          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 mt-3 text-xs text-zinc-600">
-            {resume.location && (
-              <span className="inline-flex items-center space-x-1">
-                <MapPin className="w-3 h-3 text-zinc-400" />
-                <span>{resume.location}</span>
-              </span>
-            )}
-            {resume.email && (
-              <span className="inline-flex items-center space-x-1">
-                <Mail className="w-3 h-3 text-zinc-400" />
-                <span>{resume.email}</span>
-              </span>
-            )}
-            {resume.phone && (
-              <span className="inline-flex items-center space-x-1">
-                <Phone className="w-3 h-3 text-zinc-400" />
-                <span>{resume.phone}</span>
-              </span>
-            )}
-            {resume.linkedinUrl && (
-              <a
-                href={resume.linkedinUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center space-x-1 text-emerald-700 hover:underline"
-              >
-                <LinkedinIcon className="w-3 h-3" />
-                <span>LinkedIn</span>
-              </a>
-            )}
-            {resume.githubUrl && (
-              <a
-                href={resume.githubUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center space-x-1 text-emerald-700 hover:underline"
-              >
-                <GithubIcon className="w-3 h-3" />
-                <span>GitHub</span>
-              </a>
-            )}
-            {resume.portfolioUrl && (
-              <a
-                href={resume.portfolioUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center space-x-1 text-emerald-700 hover:underline"
-              >
-                <Globe className="w-3 h-3" />
-                <span>Portfólio</span>
-              </a>
-            )}
-          </div>
-        </header>
-
-        {/* Resumo Profissional */}
-        {resume.summary && (
-          <section className="mb-5">
-            <h2 className="text-xs font-bold uppercase tracking-wider text-zinc-900 border-b border-zinc-200 pb-1 mb-2">
-              Resumo Profissional
-            </h2>
-            <p className="text-xs sm:text-sm text-zinc-700 leading-relaxed text-justify">
-              {resume.summary}
+      {/* Folha do Currículo em Estilo Editorial Físico */}
+      <div className="relative">
+        <div
+          id="resume-sheet"
+          className="bg-white text-zinc-900 p-8 sm:p-14 rounded-2xl border border-zinc-200/80 shadow-2xl font-sans max-w-4xl mx-auto print:border-none print:shadow-none print:p-0 print:max-w-none"
+        >
+          {/* Cabeçalho */}
+          <header className="border-b-2 border-zinc-900 pb-5 mb-6 text-center">
+            <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-zinc-950 uppercase">
+              {resume.fullName}
+            </h1>
+            <p className="text-sm font-semibold text-zinc-800 mt-1.5 tracking-wide">
+              {resume.headline}
             </p>
-          </section>
-        )}
 
-        {/* Habilidades Técnicas */}
-        <section className="mb-5">
-          <h2 className="text-xs font-bold uppercase tracking-wider text-zinc-900 border-b border-zinc-200 pb-1 mb-2">
-            Competências Técnicas
-          </h2>
-          <div className="space-y-1.5 text-xs sm:text-sm">
-            {resume.skills.technical?.length > 0 && (
-              <div>
-                <strong className="text-zinc-800">Linguagens & Tecnologias: </strong>
-                <span className="text-zinc-700">
-                  {resume.skills.technical.join(" • ")}
+            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 mt-3 text-xs text-zinc-600 font-medium">
+              {resume.location && (
+                <span className="inline-flex items-center space-x-1">
+                  <MapPin className="w-3 h-3 text-zinc-400" />
+                  <span>{resume.location}</span>
                 </span>
-              </div>
-            )}
-            {resume.skills.domain?.length > 0 && (
-              <div>
-                <strong className="text-zinc-800">Práticas & Metodologias: </strong>
-                <span className="text-zinc-700">
-                  {resume.skills.domain.join(" • ")}
+              )}
+              {resume.email && (
+                <span className="inline-flex items-center space-x-1">
+                  <Mail className="w-3 h-3 text-zinc-400" />
+                  <span>{resume.email}</span>
                 </span>
-              </div>
-            )}
-            {resume.skills.tools?.length > 0 && (
-              <div>
-                <strong className="text-zinc-800">Ferramentas & DevOps: </strong>
-                <span className="text-zinc-700">
-                  {resume.skills.tools.join(" • ")}
+              )}
+              {resume.phone && (
+                <span className="inline-flex items-center space-x-1">
+                  <Phone className="w-3 h-3 text-zinc-400" />
+                  <span>{resume.phone}</span>
                 </span>
-              </div>
-            )}
-          </div>
-        </section>
+              )}
+              {resume.linkedinUrl && (
+                <a
+                  href={resume.linkedinUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center space-x-1 text-zinc-800 hover:underline"
+                >
+                  <LinkedinIcon className="w-3 h-3" />
+                  <span>LinkedIn</span>
+                </a>
+              )}
+              {resume.githubUrl && (
+                <a
+                  href={resume.githubUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center space-x-1 text-zinc-800 hover:underline"
+                >
+                  <GithubIcon className="w-3 h-3" />
+                  <span>GitHub</span>
+                </a>
+              )}
+              {resume.portfolioUrl && (
+                <a
+                  href={resume.portfolioUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center space-x-1 text-zinc-800 hover:underline"
+                >
+                  <Globe className="w-3 h-3" />
+                  <span>Portfólio</span>
+                </a>
+              )}
+            </div>
+          </header>
 
-        {/* Experiências Profissionais */}
-        <section className="mb-5">
-          <h2 className="text-xs font-bold uppercase tracking-wider text-zinc-900 border-b border-zinc-200 pb-1 mb-3">
-            Experiência Profissional
-          </h2>
+          {/* Resumo Profissional */}
+          {resume.summary && (
+            <section className="mb-6">
+              <h2 className="text-xs font-black uppercase tracking-widest text-zinc-950 border-b border-zinc-200 pb-1 mb-2">
+                Resumo Profissional
+              </h2>
+              <p className="text-xs sm:text-[13px] text-zinc-800 leading-relaxed text-justify">
+                {resume.summary}
+              </p>
+            </section>
+          )}
 
-          <div className="space-y-4">
-            {resume.experiences.map((exp, idx) => (
-              <div key={idx} className="space-y-1">
-                <div className="flex flex-col sm:flex-row sm:items-baseline justify-between text-xs sm:text-sm">
-                  <div className="font-bold text-zinc-900">
-                    {exp.role} <span className="font-normal text-zinc-600">| {exp.company}</span>
-                  </div>
-                  <div className="text-xs text-zinc-500 font-medium">
-                    {exp.period} {exp.location ? `• ${exp.location}` : ""}
-                  </div>
+          {/* Habilidades Técnicas */}
+          <section className="mb-6">
+            <h2 className="text-xs font-black uppercase tracking-widest text-zinc-950 border-b border-zinc-200 pb-1 mb-2">
+              Competências Técnicas
+            </h2>
+            <div className="space-y-1.5 text-xs sm:text-[13px]">
+              {resume.skills.technical?.length > 0 && (
+                <div>
+                  <strong className="text-zinc-950">Linguagens & Tecnologias: </strong>
+                  <span className="text-zinc-700">
+                    {resume.skills.technical.join(" • ")}
+                  </span>
                 </div>
+              )}
+              {resume.skills.domain?.length > 0 && (
+                <div>
+                  <strong className="text-zinc-950">Práticas & Metodologias: </strong>
+                  <span className="text-zinc-700">
+                    {resume.skills.domain.join(" • ")}
+                  </span>
+                </div>
+              )}
+              {resume.skills.tools?.length > 0 && (
+                <div>
+                  <strong className="text-zinc-950">Ferramentas & DevOps: </strong>
+                  <span className="text-zinc-700">
+                    {resume.skills.tools.join(" • ")}
+                  </span>
+                </div>
+              )}
+            </div>
+          </section>
 
-                {exp.technologies && exp.technologies.length > 0 && (
-                  <div className="text-[11px] text-zinc-500 italic pb-0.5">
-                    Tech Stack: {exp.technologies.join(", ")}
-                  </div>
-                )}
-
-                <ul className="list-disc list-outside pl-4 space-y-1 text-xs sm:text-sm text-zinc-700 leading-relaxed">
-                  {exp.bullets.map((b, bIdx) => (
-                    <li key={bIdx}>{b}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Projetos em Destaque */}
-        {resume.projects && resume.projects.length > 0 && (
-          <section className="mb-5">
-            <h2 className="text-xs font-bold uppercase tracking-wider text-zinc-900 border-b border-zinc-200 pb-1 mb-3">
-              Projetos em Destaque
+          {/* Experiência Profissional */}
+          <section className="mb-6">
+            <h2 className="text-xs font-black uppercase tracking-widest text-zinc-950 border-b border-zinc-200 pb-1 mb-3">
+              Experiência Profissional
             </h2>
 
-            <div className="space-y-3">
-              {resume.projects.map((proj, idx) => (
-                <div key={idx} className="text-xs sm:text-sm">
-                  <div className="flex items-center space-x-2 font-bold text-zinc-900">
-                    <span>{proj.name}</span>
-                    {proj.url && (
-                      <a
-                        href={proj.url}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="text-emerald-700 hover:underline font-normal inline-flex items-center text-[11px]"
-                      >
-                        <ExternalLink className="w-2.5 h-2.5 ml-1" />
-                      </a>
+            <div className="space-y-5">
+              {resume.experiences.map((exp, idx) => (
+                <div key={idx} className="space-y-1">
+                  <div className="flex flex-col sm:flex-row sm:items-baseline justify-between text-xs sm:text-[13px]">
+                    <div className="font-bold text-zinc-950">
+                      {exp.role} <span className="font-normal text-zinc-600">| {exp.company}</span>
+                    </div>
+                    <div className="text-xs text-zinc-500 font-medium">
+                      {exp.period} {exp.location ? `• ${exp.location}` : ""}
+                    </div>
+                  </div>
+
+                  {exp.technologies && exp.technologies.length > 0 && (
+                    <div className="text-[11px] text-zinc-600 italic pb-0.5 font-medium">
+                      Tecnologias: {exp.technologies.join(", ")}
+                    </div>
+                  )}
+
+                  <ul className="list-disc list-outside pl-4 space-y-1.5 text-xs sm:text-[13px] text-zinc-800 leading-relaxed">
+                    {exp.bullets.map((b, bIdx) => (
+                      <li key={bIdx}>{b}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Projetos em Destaque */}
+          {resume.projects && resume.projects.length > 0 && (
+            <section className="mb-6">
+              <h2 className="text-xs font-black uppercase tracking-widest text-zinc-950 border-b border-zinc-200 pb-1 mb-3">
+                Projetos Relevantes
+              </h2>
+
+              <div className="space-y-3">
+                {resume.projects.map((proj, idx) => (
+                  <div key={idx} className="text-xs sm:text-[13px]">
+                    <div className="flex items-center space-x-2 font-bold text-zinc-950">
+                      <span>{proj.name}</span>
+                      {proj.url && (
+                        <a
+                          href={proj.url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-zinc-700 hover:underline font-normal inline-flex items-center text-[11px]"
+                        >
+                          <ExternalLink className="w-2.5 h-2.5 ml-1" />
+                        </a>
+                      )}
+                    </div>
+                    <p className="text-zinc-700 mt-0.5">{proj.description}</p>
+                    {proj.technologies && proj.technologies.length > 0 && (
+                      <p className="text-[11px] text-zinc-500 italic mt-0.5">
+                        Stack: {proj.technologies.join(", ")}
+                      </p>
                     )}
                   </div>
-                  <p className="text-zinc-700 mt-0.5">{proj.description}</p>
-                  {proj.technologies && proj.technologies.length > 0 && (
-                    <p className="text-[11px] text-zinc-500 italic mt-0.5">
-                      Tecnologias: {proj.technologies.join(", ")}
-                    </p>
-                  )}
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
+                ))}
+              </div>
+            </section>
+          )}
 
-        {/* Formação Acadêmica */}
-        {resume.education && resume.education.length > 0 && (
-          <section>
-            <h2 className="text-xs font-bold uppercase tracking-wider text-zinc-900 border-b border-zinc-200 pb-1 mb-2">
-              Formação Acadêmica
-            </h2>
+          {/* Formação Acadêmica */}
+          {resume.education && resume.education.length > 0 && (
+            <section>
+              <h2 className="text-xs font-black uppercase tracking-widest text-zinc-950 border-b border-zinc-200 pb-1 mb-2">
+                Formação Acadêmica
+              </h2>
 
-            <div className="space-y-1 text-xs sm:text-sm">
-              {resume.education.map((edu, idx) => (
-                <div key={idx} className="flex justify-between">
-                  <div>
-                    <strong className="text-zinc-800">{edu.degree}</strong> —{" "}
-                    <span className="text-zinc-700">{edu.institution}</span>
+              <div className="space-y-1.5 text-xs sm:text-[13px]">
+                {resume.education.map((edu, idx) => (
+                  <div key={idx} className="flex justify-between">
+                    <div>
+                      <strong className="text-zinc-900">{edu.degree}</strong> —{" "}
+                      <span className="text-zinc-700">{edu.institution}</span>
+                    </div>
+                    <span className="text-xs text-zinc-500 font-medium">{edu.year}</span>
                   </div>
-                  <span className="text-xs text-zinc-500">{edu.year}</span>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
+                ))}
+              </div>
+            </section>
+          )}
+        </div>
       </div>
     </div>
   );

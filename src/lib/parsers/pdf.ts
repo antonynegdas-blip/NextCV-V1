@@ -19,3 +19,4 @@ export async function parsePdfBuffer(buffer: ArrayBuffer | Uint8Array): Promise<
     throw new Error("Falha ao ler o arquivo PDF. Verifique se o arquivo não está corrompido ou protegido por senha.");
   }
 }
+

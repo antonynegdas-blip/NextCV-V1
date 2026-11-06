@@ -57,3 +57,4 @@ export function checkRateLimit(
     resetInSeconds: Math.ceil((record.resetAt - now) / 1000),
   };
 }
+

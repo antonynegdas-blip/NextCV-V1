@@ -45,3 +45,4 @@ Diferenciais (Nice to have):
 O que oferecemos:
 - 100% Remoto no Brasil.
 - Salário competitivo PJ ou CLT + benefícios flexíveis.`;
+
