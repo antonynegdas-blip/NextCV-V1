@@ -40,3 +40,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# personal launch playbook
+PERSONAL_LAUNCH_GUIDE.md
+PERSONAL_LAUNCH_GUIDE*.md
+
+
