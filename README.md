@@ -1,15 +1,15 @@
 <div align="center">
 
-  <img src="public/icon.svg" alt="NextCV Logo" width="80" height="80" />
+  <img src="public/icon.svg" alt="AstraCV Logo" width="80" height="80" />
 
-  # NextCV — ATS Precision Resume Optimizer
+  # AstraCV — ATS Precision Resume Optimizer
   
   **Otimizador de Perfil Técnico e Currículos para Sistemas ATS (Gupy, Greenhouse, Lever, Workday)**
 
   [![Next.js 16](https://img.shields.io/badge/Next.js-16.4-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
   [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
   [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38bdf8?style=for-the-badge&logo=tailwindcss)](https://tailwindcss.com/)
-  [![Security](https://img.shields.io/badge/Security-A%2B%20Hardened-emerald?style=for-the-badge&logo=shield)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)
+  [![Security](https://img.shields.io/badge/Security-A%2B%20Hardened-blue?style=for-the-badge&logo=shield)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)
   [![License](https://img.shields.io/badge/License-MIT-zinc?style=for-the-badge)](LICENSE)
 
   <p align="center">
@@ -26,7 +26,7 @@
 
 ## 📌 Visão Geral
 
-O **NextCV** é uma aplicação web full-stack desenvolvida para solucionar uma das maiores ineficiências do mercado de recrutamento técnico: a reprovação sumária de desenvolvedores qualificados em plataformas de triagem automatizada (Applicant Tracking Systems — ATS) por ausência de correspondência semântica e falta de métricas quantificáveis.
+O **AstraCV** é uma aplicação web full-stack desenvolvida para solucionar uma das maiores ineficiências do mercado de recrutamento técnico: a reprovação sumária de desenvolvedores qualificados em plataformas de triagem automatizada (Applicant Tracking Systems — ATS) por ausência de correspondência semântica e falta de métricas quantificáveis.
 
 A plataforma analisa os requisitos da vaga desejada, calcula um índice de correspondência técnica (**ATS Match Score**) segmentado em 3 pilares e reestrutura as realizações profissionais com base no framework **Google XYZ** (*"Alcancei [X], medido por [Y], fazendo [Z]"*), entregando um currículo otimizado com diagramação em coluna única certificada para OCR.
 

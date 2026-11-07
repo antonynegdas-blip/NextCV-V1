@@ -112,29 +112,30 @@ export function ResumeViewer({ resume }: ResumeViewerProps) {
   return (
     <div className="space-y-6">
       {/* Barra de Ações com Design Glassmorphism */}
-      <div className="sticky top-20 z-40 flex flex-wrap items-center justify-between gap-3 p-3 sm:p-4 bg-zinc-900/90 rounded-2xl border border-white/10 shadow-2xl backdrop-blur-xl print:hidden">
+      <div className="sticky top-14 sm:top-20 z-40 flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 sm:p-4 bg-zinc-900/90 rounded-xl sm:rounded-2xl border border-white/10 shadow-2xl backdrop-blur-xl print:hidden">
         <div className="flex items-center space-x-2 text-xs text-zinc-300">
-          <ShieldCheck className="w-4 h-4 text-emerald-400" />
+          <ShieldCheck className="w-4 h-4 text-blue-400 shrink-0" />
           <span className="font-medium">Layout Certificado ATS</span>
           <span className="text-zinc-500">•</span>
           <span className="text-zinc-400 hidden sm:inline">Estrutura pura em coluna única para OCR</span>
+          <span className="text-zinc-400 sm:hidden">Coluna única OCR</span>
         </div>
 
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar w-full sm:w-auto">
           <button
             type="button"
             onClick={() => handleCopy("text")}
-            className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-medium bg-white/[0.05] hover:bg-white/10 border border-white/10 text-zinc-200 transition cursor-pointer"
+            className="flex-1 sm:flex-none inline-flex items-center justify-center space-x-1.5 px-3 py-2 sm:py-1.5 min-h-[38px] rounded-xl text-xs font-medium bg-white/[0.05] hover:bg-white/10 border border-white/10 text-zinc-200 transition cursor-pointer whitespace-nowrap"
           >
             {copiedType === "text" ? (
               <>
-                <Check className="w-3.5 h-3.5 text-emerald-400" />
-                <span className="text-emerald-400 font-semibold">Copiado!</span>
+                <Check className="w-3.5 h-3.5 text-blue-400" />
+                <span className="text-blue-400 font-semibold">Copiado!</span>
               </>
             ) : (
               <>
                 <Copy className="w-3.5 h-3.5 text-zinc-400" />
-                <span>Copiar Texto Gupy</span>
+                <span>Copiar Texto</span>
               </>
             )}
           </button>
@@ -142,17 +143,17 @@ export function ResumeViewer({ resume }: ResumeViewerProps) {
           <button
             type="button"
             onClick={() => handleCopy("markdown")}
-            className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-medium bg-white/[0.05] hover:bg-white/10 border border-white/10 text-zinc-200 transition cursor-pointer"
+            className="flex-1 sm:flex-none inline-flex items-center justify-center space-x-1.5 px-3 py-2 sm:py-1.5 min-h-[38px] rounded-xl text-xs font-medium bg-white/[0.05] hover:bg-white/10 border border-white/10 text-zinc-200 transition cursor-pointer whitespace-nowrap"
           >
             {copiedType === "markdown" ? (
               <>
-                <Check className="w-3.5 h-3.5 text-emerald-400" />
-                <span className="text-emerald-400 font-semibold">Copiado!</span>
+                <Check className="w-3.5 h-3.5 text-blue-400" />
+                <span className="text-blue-400 font-semibold">Copiado!</span>
               </>
             ) : (
               <>
                 <Copy className="w-3.5 h-3.5 text-zinc-400" />
-                <span>Copiar Markdown</span>
+                <span>Markdown</span>
               </>
             )}
           </button>
@@ -160,9 +161,9 @@ export function ResumeViewer({ resume }: ResumeViewerProps) {
           <button
             type="button"
             onClick={handlePrint}
-            className="inline-flex items-center space-x-1.5 px-4 py-1.5 rounded-xl text-xs font-semibold bg-emerald-400 hover:bg-emerald-300 text-zinc-950 shadow-md shadow-emerald-500/20 transition cursor-pointer"
+            className="flex-1 sm:flex-none inline-flex items-center justify-center space-x-1.5 px-3.5 sm:px-4 py-2 sm:py-1.5 min-h-[38px] rounded-xl text-xs font-semibold bg-blue-600 hover:bg-blue-500 text-white shadow-md shadow-blue-500/25 transition cursor-pointer whitespace-nowrap"
           >
-            <Printer className="w-3.5 h-3.5 text-zinc-950" />
+            <Printer className="w-3.5 h-3.5 text-white" />
             <span>Imprimir / PDF</span>
           </button>
         </div>
@@ -172,18 +173,18 @@ export function ResumeViewer({ resume }: ResumeViewerProps) {
       <div className="relative">
         <div
           id="resume-sheet"
-          className="bg-white text-zinc-900 p-8 sm:p-14 rounded-2xl border border-zinc-200/80 shadow-2xl font-sans max-w-4xl mx-auto print:border-none print:shadow-none print:p-0 print:max-w-none"
+          className="bg-white text-zinc-900 p-4 sm:p-8 md:p-12 lg:p-14 rounded-xl sm:rounded-2xl border border-zinc-200/80 shadow-2xl font-sans max-w-4xl mx-auto print:border-none print:shadow-none print:p-0 print:max-w-none"
         >
           {/* Cabeçalho */}
-          <header className="border-b-2 border-zinc-900 pb-5 mb-6 text-center">
-            <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-zinc-950 uppercase">
+          <header className="border-b-2 border-zinc-900 pb-4 sm:pb-5 mb-5 sm:mb-6 text-center">
+            <h1 className="text-xl sm:text-3xl font-black tracking-tight text-zinc-950 uppercase">
               {resume.fullName}
             </h1>
-            <p className="text-sm font-semibold text-zinc-800 mt-1.5 tracking-wide">
+            <p className="text-xs sm:text-sm font-semibold text-zinc-800 mt-1.5 tracking-wide">
               {resume.headline}
             </p>
 
-            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 mt-3 text-xs text-zinc-600 font-medium">
+            <div className="flex flex-wrap items-center justify-center gap-x-3 sm:gap-x-4 gap-y-1.5 mt-2.5 sm:mt-3 text-[11px] sm:text-xs text-zinc-600 font-medium">
               {resume.location && (
                 <span className="inline-flex items-center space-x-1">
                   <MapPin className="w-3 h-3 text-zinc-400" />
@@ -240,11 +241,11 @@ export function ResumeViewer({ resume }: ResumeViewerProps) {
 
           {/* Resumo Profissional */}
           {resume.summary && (
-            <section className="mb-6">
+            <section className="mb-5 sm:mb-6">
               <h2 className="text-xs font-black uppercase tracking-widest text-zinc-950 border-b border-zinc-200 pb-1 mb-2">
                 Resumo Profissional
               </h2>
-              <p className="text-xs sm:text-[13px] text-zinc-800 leading-relaxed text-justify">
+              <p className="text-xs sm:text-[13px] text-zinc-800 leading-relaxed text-left sm:text-justify">
                 {resume.summary}
               </p>
             </section>
@@ -361,12 +362,12 @@ export function ResumeViewer({ resume }: ResumeViewerProps) {
 
               <div className="space-y-1.5 text-xs sm:text-[13px]">
                 {resume.education.map((edu, idx) => (
-                  <div key={idx} className="flex justify-between">
+                  <div key={idx} className="flex flex-col sm:flex-row sm:justify-between gap-0.5 sm:gap-0">
                     <div>
                       <strong className="text-zinc-900">{edu.degree}</strong> —{" "}
                       <span className="text-zinc-700">{edu.institution}</span>
                     </div>
-                    <span className="text-xs text-zinc-500 font-medium">{edu.year}</span>
+                    <span className="text-xs text-zinc-500 font-medium shrink-0">{edu.year}</span>
                   </div>
                 ))}
               </div>
